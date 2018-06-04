@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -26,47 +25,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link active" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="#">Twitter</a>
             <a class="nav-item nav-link" href="{% static 'Navdeep_Beniwal_Resume.pdf' %}">Resume</a>
-            <a class="nav-item nav-link" href="{% url 'allblogs' %}">Blog</a>
+            <a class="nav-item nav-link active" href="{% url 'allblogs' %}">Blog</a>
           </div>
         </div>
       </nav>
     </header>
 
     <main role="main">
+      <div class="container" style="padding: 10px; padding-top: 40px; padding-bottom:40px;">
+        <h1 class="text-center">Hi! Welcome to Navdeep's Blog</h1>
+        <br><br>
+        <h2>Latest Posts</h2>
+        <hr>
 
-      <section class="jumbotron text-center">
-        <div class="container">
-          <img src="{% static 'IMG_0329.JPG' %}" height="300px" width="300px">
-          <h1 class="jumbotron-heading">Hi! I am Navdeep</h1>
-          <p class="lead text-muted">I am an intermedtiate programmer and web developer. I am currently learning django framework.</p>
-          <p>
-            <a href="#" class="btn btn-primary my-2">Email Me</a>
-          </p>
-        </div>
-      </section>
+        {% for blog in blogs.all %}
+        <a href="{% url 'detail' blog.id %}"><h3> {{ blog.title }}</h3><a>
+        <p class=".lead"> {{ blog.pub_date_pretty }} </p>
+        <img class="img-fluid" height="200px" width="200px" src="{{ blog.image.url }}" alt="Card image cap">
+        <p> {{ blog.summary }} </p>
 
-      <div class="album py-5 bg-light">
-        <div class="container">
-
-          <div class="row">
-            {% for job in jobs.all %}
-            <div class="col-md-4">
-              <div class="card mb-4 box-shadow">
-                <img class="card-img-top" src="{{ job.image.url }}" alt="Card image cap">
-                <div class="card-body">
-                  <p class="card-text">{{ job.summary }}</p>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-
-        </div>
+        {% endfor %}
       </div>
-
     </main>
 
     <footer class="text-muted">
